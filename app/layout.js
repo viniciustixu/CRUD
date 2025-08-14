@@ -1,5 +1,5 @@
 import "./globals.css";
-import Home from './components/Home';
+import HomeBtn from './components/HomeBtn';
 import Filters from './components/Filters';
 import Search from './components/Search';
 
@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
               <Filters />
             </div>
             <Search />
-            <Home />
+            <HomeBtn />
           </nav>
         </header>
         {children}
