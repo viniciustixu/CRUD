@@ -1,7 +1,7 @@
 import "./globals.css";
-import HomeBtn from './components/HomeBtn';
-import Filters from './components/Filters';
-import Search from './components/Search';
+import HomeBtn from '@/components/HomeBtn';
+import Filters from '@/components/Filters';
+import Search from '@/components/Search';
 
 
 export const metadata = {
