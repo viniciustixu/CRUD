@@ -1,12 +1,15 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function HomeBtn() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   function handleClick() {
-    router.push('/');
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', '1');
+    router.push(`/?${params.toString()}`);
   }
 
   return (
