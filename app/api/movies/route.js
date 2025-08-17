@@ -9,8 +9,22 @@ export async function GET(req) {
   const page = Number(searchParams.get('page')) || 1;
   const limit = Number(searchParams.get('limit')) || 20;
   const skip = (page - 1) * limit;
-  const movies = await Movie.find().skip(skip).limit(limit);
-  const total = await Movie.countDocuments();
+
+  const query = {};
+
+  const year = searchParams.get('year');
+  if (year) {
+    query.year = { $gte: Number(year) };
+  }
+
+  const genres = searchParams.get('genres');
+  if (genres) {
+    query.genres = { $all: genres.split(',') };
+  }
+
+
+  const movies = await Movie.find(query).skip(skip).limit(limit);
+  const total = await Movie.countDocuments(query);
 
 
 

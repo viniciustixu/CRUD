@@ -7,10 +7,41 @@ export default function Filters() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [limit, setLimit] = useState(searchParams.get('limit') || 20);
+  const [year, setYear] = useState(0);
+  const [genres, setGenres] = useState([]);
+  const genresList = [
+    'Action',
+    'Adventure',
+    'Animation',
+    'Biography',
+    'Comedy',
+    'Crime',
+    'Documentary',
+    'Drama',
+    'Family',
+    'Fantasy',
+    'Film-Noir',
+    'History',
+    'Horror',
+    'Music',
+    'Musical',
+    'Mystery',
+    'News',
+    'Romance',
+    'Sci-Fi',
+    'Short',
+    'Sport',
+    'Talk-Show',
+    'Thriller',
+    'War',
+    'Western',
+  ];
 
   const handleApplyChanges = () => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('limit', limit);
+    params.set('year', year);
+    params.set('genres', genres);
     router.push(`/?${params.toString()}`);
     router.refresh();
   };
@@ -63,6 +94,60 @@ export default function Filters() {
                 </select>
               </div>
             </li>
+
+            <li>
+              <div className='flex justify-between'>
+                <label className='label'>Year: </label>
+                <select
+                  defaultValue={year}
+                  className='select max-w-[163.45px]'
+                  onChange={(e) => setYear(e.target.value)}>
+                  <option value='0' hidden={year == 0 ? true : false}>
+                    any
+                  </option>
+                  <option value='1955'>1955</option>
+                  <option value='1960'>1960</option>
+                  <option value='1965'>1965</option>
+                  <option value='1970'>1970</option>
+                  <option value='1975'>1975</option>
+                  <option value='1980'>1980</option>
+                  <option value='1985'>1985</option>
+                  <option value='1990'>1990</option>
+                  <option value='1995'>1995</option>
+                  <option value='2000'>2000</option>
+                  <option value='2005'>2005</option>
+                  <option value='2010'>2010</option>
+                  <option value='2015'>2015</option>
+                  <option value='2020'>2020</option>
+                  <option value='2025'>2025</option>
+                </select>
+              </div>
+            </li>
+            <li>
+              <div className='flex flex-wrap p-2 gap-4'>
+                {genresList.map((genre, index) => (
+                  <label
+                    htmlFor={genre}
+                    key={index}
+                    className=' p-1 rounded flex gap-2'>
+                    {genre}
+                    <input
+                      type='checkbox'
+                      id={genre}
+                      checked={genres.includes(genre)}
+                      onChange={(e) => {
+                        if (e.target.checked) {
+                          setGenres([...genres, genre]);
+                        } else {
+                          setGenres(genres.filter((g) => g !== genre));
+                        }
+                      }}
+                    />
+                  </label>
+                ))}
+              </div>
+            </li>
+
             <li>
               <button className='btn' onClick={handleApplyChanges}>
                 Apply

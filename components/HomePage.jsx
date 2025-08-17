@@ -8,13 +8,17 @@ export default function HomePage() {
   const searchParams = useSearchParams();
   const page = Number(searchParams.get('page')) || 1;
   const limit = searchParams.get('limit') || 50;
+  const year = searchParams.get('year') || 0;
+  const genres = searchParams.get('genres') || '';
   const [movies, setMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
 
   const errorImg = 'https://cdn-icons-png.flaticon.com/512/13434/13434972.png';
 
   const fetchMovies = async () => {
-    const res = await fetch(`/api/movies?page=${page}&limit=${limit}`);
+    const res = await fetch(
+      `/api/movies?page=${page}&limit=${limit}&year=${year}&genres=${genres}`,
+    );
     const data = await res.json();
     setMovies(data.movies);
     setTotalPages(data.totalPages);
@@ -27,7 +31,7 @@ export default function HomePage() {
 
   useEffect(() => {
     fetchMovies();
-  }, [page, limit]);
+  }, [page, limit, year, genres]);
 
   const handleNewPage = (p) => {
     const newPage = p;
