@@ -6,7 +6,7 @@ import { useState } from 'react';
 export default function Filters() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [limit, setLimit] = useState(searchParams.get('limit') || 20);
+  const [limit, setLimit] = useState(searchParams.get('limit') || 50);
   const [year, setYear] = useState(0);
   const [genres, setGenres] = useState([]);
   const genresList = [
@@ -46,6 +46,17 @@ export default function Filters() {
     router.refresh();
   };
 
+  const handleReset = () => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('limit');
+    params.delete('year');
+    params.delete('genres');
+    // router.push(`/?${params.toString()}`);
+    setGenres([]);
+    setYear(0);
+    setLimit(50);
+  };
+
   return (
     <div>
       <div className='drawer'>
@@ -76,7 +87,7 @@ export default function Filters() {
               <div>
                 <label className='label'>Limit per page: </label>
                 <select
-                  defaultValue={limit}
+                  value={limit}
                   className='select'
                   onChange={(e) => setLimit(e.target.value)}>
                   <option disabled={true}>{limit}</option>
@@ -99,7 +110,7 @@ export default function Filters() {
               <div className='flex justify-between'>
                 <label className='label'>Year: </label>
                 <select
-                  defaultValue={year}
+                  value={year}
                   className='select max-w-[163.45px]'
                   onChange={(e) => setYear(e.target.value)}>
                   <option value='0' hidden={year == 0 ? true : false}>
@@ -149,9 +160,17 @@ export default function Filters() {
             </li>
 
             <li>
-              <button className='btn' onClick={handleApplyChanges}>
-                Apply
-              </button>
+              <div>
+                <button className='btn w-[200px]' onClick={handleApplyChanges}>
+                  Apply
+                </button>
+                <button className='btn p-2 w-[60px]' onClick={handleReset}>
+                  <img
+                    src='/reseticon.svg'
+                    className='object-contain w-full h-full'
+                  />
+                </button>
+              </div>
             </li>
           </ul>
         </div>

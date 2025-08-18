@@ -7,9 +7,7 @@ export default function HomeBtn() {
   const searchParams = useSearchParams();
 
   function handleClick() {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('page', '1');
-    router.push(`/?${params.toString()}`);
+    router.push('/');
   }
 
   return (
