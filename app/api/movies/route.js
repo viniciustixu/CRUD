@@ -31,3 +31,16 @@ export async function GET(req) {
 
   return NextResponse.json({ movies, total, totalPages: Math.ceil(total / limit), currentPage: page }, { status: 200 });
 }
+
+export async function POST(req) {
+  const { title, year, genres, plot, runtime, cast, poster, fullplot, languages, released, directors, rated, awards, lastupdated, imdb, countries, type, tomatoes } = await req.json();
+
+  await connectToDatabase();
+  const existingMovie = await Movie.findOne({ title });
+  if (existingMovie) {
+    return NextResponse.json({ message: 'Movie already exists' }, { status: 400 });
+  }
+  const newMovie = new Movie({ title, year, genres, plot, runtime, cast, poster, fullplot, languages, released, directors, rated, awards, lastupdated, imdb, countries, type, tomatoes });
+  await newMovie.save();
+  return NextResponse.json({ message: 'Movie created successfully' }, { status: 201 });
+}

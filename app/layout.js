@@ -2,6 +2,7 @@ import "./globals.css";
 import HomeBtn from '@/components/HomeBtn';
 import Filters from '@/components/Filters';
 import Search from '@/components/Search';
+import AddMovieBtn from '@/components/addMovieBtn';
 
 
 export const metadata = {
@@ -23,7 +24,12 @@ export default function RootLayout({ children }) {
               <Filters />
             </div>
             <Search />
-            <HomeBtn />
+            <div className='flex gap-2'>
+
+              <AddMovieBtn />
+              <HomeBtn />
+            </div>
+
           </nav>
         </header>
         {children}
