@@ -34,19 +34,12 @@ export default function moviePage({ params }) {
           <h1 className='text-6xl font-bold'>{movie.title}</h1>
           <div className=' justify-end w-full flex mt-15 gap-1 items-center'>
             <div className='flex flex-col items-center'>
-              <p className='font-extralight text-[0.8rem]'>
-                {movie.imdb?.rating}
-              </p>
+              <p className='font-extralight text-[0.8rem]'>{movie.imdb?.rating}</p>
               <p className='ml-2 text-[0.6rem]'>(votes: {movie.imdb?.votes})</p>
             </div>
-            <StarRating
-              rating={movie.imdb?.rating}
-              className='justify-center'
-            />
+            <StarRating rating={movie.imdb?.rating} className='justify-center' />
           </div>
-          <p className='text-[1.2rem] mt-2'>
-            {movie.fullplot || movie.plot || 'No plot available'}
-          </p>
+          <p className='text-[1.2rem] mt-2'>{movie.fullplot || movie.plot || 'No plot available'}</p>
 
           <aside className='mt-10 flex gap-10 flex-wrap justify-around'>
             <div className='w-[250px] bg-[rgb(248,248,248)] p-5 rounded-2xl'>
@@ -61,9 +54,7 @@ export default function moviePage({ params }) {
               <h2 className='text-2xl font-bold'>Awards: </h2>
 
               <p className='mt-2'>Wins: {movie?.awards?.wins || '0'}</p>
-              <p className='mt-2'>
-                Nominations: {movie?.awards?.nominations || '0'}
-              </p>
+              <p className='mt-2'>Nominations: {movie?.awards?.nominations || '0'}</p>
               <p className='mt-2'>{movie?.awards?.text || 'no awards'}</p>
             </div>
 
@@ -72,7 +63,7 @@ export default function moviePage({ params }) {
               <div className='flex justify-around'>
                 <div className='flex flex-col gap-2'>
                   <div>
-                    <h2 className='font-bold'>Directors:</h2>
+                    <h2 className='font-bold'>Director:</h2>
                     <p>{movie?.directors || ' no director founded'}</p>
                   </div>
                   <div>

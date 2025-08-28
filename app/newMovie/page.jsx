@@ -1,6 +1,8 @@
 'use client';
 import { useState } from 'react';
 import CastInput from '@/components/CastInput';
+import GenresInput from '@/components/GenresInput';
+import LanguageInput from '@/components/LanguageInput';
 
 export default function addMovie() {
   const [title, setTitle] = useState('Title');
@@ -10,6 +12,12 @@ export default function addMovie() {
   const [rating, setRating] = useState(0);
   const [votes, setVotes] = useState(0);
   const [cast, setCast] = useState(['no actors']);
+  const [wins, setWins] = useState(0);
+  const [nominations, setNominations] = useState(0);
+  const [text, setText] = useState('0 wins & 0 nominations');
+  const [director, setDirector] = useState('no director');
+  const [genres, setGenres] = useState(['Genres']);
+  const [languages, setLanguages] = useState(['Languages']);
 
   return (
     <form action=''>
@@ -67,7 +75,51 @@ export default function addMovie() {
         <h1 className='font-bold text-3xl mt-12'>Cast</h1>
         <CastInput cast={cast} setCast={setCast} />
       </div>
+
+      <div className='flex flex-col items-center'>
+        <h1 className='font-bold text-3xl mt-12'>Awards</h1>
+        <div className='flex items-center gap-2'>
+          <label>Nominations:</label>
+          <input
+            type='number'
+            value={nominations}
+            min={0}
+            max={30}
+            onChange={(e) => setNominations(e.target.value)}
+            className='input'
+          />
+        </div>
+        <div className='flex items-center gap-2'>
+          <label>Wins:</label>
+          <input
+            type='number'
+            value={wins}
+            min={0}
+            max={nominations}
+            onChange={(e) => setWins(e.target.value)}
+            className='input'
+          />
+        </div>
+        <div className='flex items-center gap-2'>
+          <label>Text:</label>
+          <input type='text' value={text} onChange={(e) => setText(e.target.value)} className='input' />
+        </div>
+      </div>
+
+      <div className='flex flex-col items-center'>
+        <h1 className='font-bold text-3xl mt-12'>Info</h1>
+        <div className='flex items-center gap-2'>
+          <label>Director: </label>
+          <input type='text' required value={director} onChange={(e) => setDirector(e.target.value)} />
+        </div>
+        <div className='flex items-center gap-2'>
+          <GenresInput genres={genres} setGenres={setGenres} />
+        </div>
+        <div className='flex items-center gap-2'>
+          <LanguageInput languages={languages} setLanguages={setLanguages} />
+        </div>
+      </div>
     </form>
   );
 }
-/* Continuar daqui, falta formulário awards e info */
+/* Continuar daqui, mudar seção de cast pra ficar igual a de languages */
