@@ -64,7 +64,7 @@ export default function moviePage({ params }) {
                 <div className='flex flex-col gap-2'>
                   <div>
                     <h2 className='font-bold'>Director:</h2>
-                    <p>{movie?.directors || ' no director founded'}</p>
+                    {movie?.directors?.map((d, i) => <p key={i}>{d}</p>) || ' no director founded'}
                   </div>
                   <div>
                     <h2 className='font-bold'>Languages:</h2>
