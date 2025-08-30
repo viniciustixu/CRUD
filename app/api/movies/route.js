@@ -42,5 +42,5 @@ export async function POST(req) {
   }
   const newMovie = new Movie({ title, year, genres, plot, runtime, cast, poster, fullplot, languages, released, directors, rated, awards, lastupdated, imdb, countries, type, tomatoes });
   await newMovie.save();
-  return NextResponse.json({ message: 'Movie created successfully' }, { status: 201 });
+  return NextResponse.json({ message: 'Movie created successfully', _id: newMovie._id }, { status: 201 });
 }
