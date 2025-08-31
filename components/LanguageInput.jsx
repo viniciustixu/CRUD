@@ -23,6 +23,7 @@ export default function LanguageInput({ languages, setLanguages }) {
               type='text'
               required
               className='input'
+              placeholder='Language'
               value={language}
               onChange={(e) => handleChange(index, e.target.value)}
             />

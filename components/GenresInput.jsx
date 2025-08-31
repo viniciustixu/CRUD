@@ -18,8 +18,12 @@ export default function GenresInput({ genres, setGenres }) {
 
   return (
     <div className='flex gap-2 items-center'>
-      <textarea readOnly disabled className='textarea h-14' placeholder='Genres' value={genres}></textarea>
-      <select onChange={handleTest} className='h-[30px]'>
+      <textarea
+        readOnly
+        className='textarea  textarea-info hover:cursor-not-allowed'
+        placeholder='Genres'
+        value={genres}></textarea>
+      <select onChange={handleTest} className='select'>
         <option value='Action'>Action</option>
         <option value='Adventure'>Adventure</option>
         <option value='Animation'>Animation</option>
@@ -47,7 +51,15 @@ export default function GenresInput({ genres, setGenres }) {
         <option value='Western'>Western</option>
       </select>
       <button className='btn' onClick={handleRemoveItem}>
-        X
+        <svg
+          xmlns='http://www.w3.org/2000/svg'
+          viewBox='0 0 480 480'
+          width='16'
+          height='16'
+          fill='red'
+          className='rotate-45'>
+          <path d='M480 210H270V0h-60v210H0v60h210v210h60V270h210v-60z' />
+        </svg>
       </button>
     </div>
   );

@@ -22,7 +22,7 @@ export default function moviePage({ params }) {
   return (
     <div className='flex  items-center  lg:justify-center '>
       <div className='flex-col items-center bg-[rgb(238,238,238)] mt-[80px] p-5 flex justify-around lg:flex-row xl:w-2/3 lg:items-start'>
-        <div className='flex justify-center items-start '>
+        <div className='flex justify-center items-start max-w-[689px] '>
           <img
             src={movie.poster || errorImg}
             onError={(e) => (e.target.src = errorImg)}
@@ -68,11 +68,10 @@ export default function moviePage({ params }) {
                   </div>
                   <div>
                     <h2 className='font-bold'>Languages:</h2>
-                    <p>
-                      {movie?.languages && movie.languages.length > 0
-                        ? movie.languages.join(', ')
-                        : 'no language founded'}
-                    </p>
+
+                    {movie?.languages?.map((l, i) => (
+                      <p key={i}>{l}</p>
+                    ))}
                   </div>
                   <div>
                     <h2 className='font-bold'> Released: </h2>

@@ -22,7 +22,7 @@ export default function addMovie() {
   const [wins, setWins] = useState(0);
   const [nominations, setNominations] = useState(0);
   const [text, setText] = useState('0 wins & 0 nominations');
-  const [directors, setDirectors] = useState(['no directors']);
+  const [directors, setDirectors] = useState(['Directors']);
   const [genres, setGenres] = useState(['Genres']);
   const [languages, setLanguages] = useState(['Languages']);
   const [released, setReleased] = useState(new Date().toLocaleDateString('en-CA'));
@@ -129,142 +129,169 @@ export default function addMovie() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div className='flex  items-center justify-end flex-wrap gap-2 max-w-[500px] content bg-amber-300'>
-          <h1 className='font-bold text-3xl mt-12'>Main</h1>
-          <div className='flex items-center gap-2 '>
-            <label>Title: </label>
-            <input type='text' required value={title} onChange={(e) => setTitle(e.target.value)} className='input' />
-          </div>
-          <div className='flex items-center gap-2 '>
-            <label>PosterUrl: </label>
-            <input type='text' required value={poster} onChange={(e) => setPoster(e.target.value)} className='input' />
-          </div>
-          <div className='flex items-center gap-2'>
-            <label>Plot: </label>
-            <input type='text' required value={plot} onChange={(e) => setPlot(e.target.value)} className='input' />
-          </div>
-          <div className='flex items-center gap-2'>
-            <label>fullPlot: </label>
-            <input
-              type='text'
-              required
-              value={fullplot}
-              onChange={(e) => setFullplot(e.target.value)}
-              className='input'
-            />
-          </div>
-          <div className='flex items-center gap-2'>
-            <label>Rating: </label>
-            <input
-              type='number'
-              step='0.1'
-              required
-              value={rating}
-              min={0}
-              max={10}
-              onChange={(e) => setRating(e.target.value)}
-              className='input'
-            />
-          </div>
-          <div className='flex items-center gap-2'>
-            <label>Votes: </label>
-            <input
-              type='number'
-              required
-              value={votes}
-              min={0}
-              max={100000}
-              onChange={(e) => setVotes(e.target.value)}
-              className='input'
-            />
+    <div className='bg-[rgb(238,238,238)]  max-w-[800px] mx-auto my-15 rounded-2xl'>
+      <form onSubmit={handleSubmit} className='pt-20 flex flex-col gap-8'>
+        <div className='flex flex-col items-center max-w-[500px] mx-auto gap-2 bg-[rgb(248,248,248)] rounded-2xl p-5'>
+          <h1 className='font-bold text-3xl mx-auto '>Main</h1>
+          <div className='flex flex-col gap-2 '>
+            <div className='flex items-center gap-2 '>
+              <label>Title: </label>
+              <input type='text' required value={title} onChange={(e) => setTitle(e.target.value)} className='input' />
+            </div>
+            <div className='flex items-center gap-2 '>
+              <label>PosterUrl: </label>
+              <input
+                type='text'
+                required
+                value={poster}
+                onChange={(e) => setPoster(e.target.value)}
+                className='input'
+              />
+            </div>
+            <div className='flex items-center gap-2'>
+              <label>Plot: </label>
+              <input type='text' required value={plot} onChange={(e) => setPlot(e.target.value)} className='input' />
+            </div>
+            <div className='flex items-center gap-2'>
+              <label>fullPlot: </label>
+              <input
+                type='text'
+                required
+                value={fullplot}
+                onChange={(e) => setFullplot(e.target.value)}
+                className='input'
+              />
+            </div>
+            <div className='flex items-center gap-2'>
+              <label>Rating: </label>
+              <input
+                type='number'
+                step='0.1'
+                required
+                value={rating}
+                min={0}
+                max={10}
+                onChange={(e) => setRating(e.target.value)}
+                className='input'
+              />
+            </div>
+            <div className='flex items-center gap-2'>
+              <label>Votes: </label>
+              <input
+                type='number'
+                required
+                value={votes}
+                min={0}
+                max={100000}
+                onChange={(e) => setVotes(e.target.value)}
+                className='input '
+              />
+            </div>
           </div>
         </div>
-        <div className='flex flex-col items-center'>
-          <h1 className='font-bold text-3xl mt-12'>Cast</h1>
+        <div className='flex flex-col items-center gap-2 bg-[rgb(248,248,248)] max-w-[500px] rounded-2xl mx-auto p-5'>
+          <h1 className='font-bold text-3xl'>Cast</h1>
           <CastInput cast={cast} setCast={setCast} />
         </div>
-        <div className='flex flex-col items-center'>
-          <h1 className='font-bold text-3xl mt-12'>Awards</h1>
-          <div className='flex items-center gap-2'>
-            <label>Nominations:</label>
-            <input
-              type='number'
-              value={nominations}
-              min={0}
-              max={30}
-              onChange={(e) => setNominations(e.target.value)}
-              className='input'
-            />
-          </div>
-          <div className='flex items-center gap-2'>
-            <label>Wins:</label>
-            <input
-              type='number'
-              value={wins}
-              min={0}
-              max={nominations}
-              onChange={(e) => setWins(e.target.value)}
-              className='input'
-            />
-          </div>
-          <div className='flex items-center gap-2'>
-            <label>Text:</label>
-            <input type='text' required value={text} onChange={(e) => setText(e.target.value)} className='input' />
-          </div>
-        </div>
-        <div className='flex flex-col items-center'>
-          <h1 className='font-bold text-3xl mt-12'>Info</h1>
-          <div className='flex items-center gap-2'>
-            <label>Directors: </label>
-            <DirectorsInput directors={directors} setDirectors={setDirectors} />
-          </div>
-          <div className='flex items-center gap-2'>
-            <GenresInput genres={genres} setGenres={setGenres} />
-          </div>
-          <div className='flex items-center gap-2'>
-            <LanguageInput languages={languages} setLanguages={setLanguages} />
-          </div>
-          <div className='flex items-center gap-2'>
-            <label>Released: </label>
-            <input
-              type='date'
-              required
-              value={released}
-              onChange={(e) => {
-                setReleased(e.target.value);
-                setYear(e.target.value.slice(0, 4));
-              }}
-            />
-          </div>
-          <div className='flex items-center gap-2'>
-            <CountriesInput countries={countries} setCountries={setCountries} />
-          </div>
-          <div className='flex items-center gap-2'>
-            <label>Runtime: </label>
-            <input
-              type='number'
-              min={0}
-              required
-              value={runtime}
-              onChange={(e) => setRuntime(e.target.value)}
-              className='input'
-            />
-            <p>Minutes</p>
-          </div>
-          <div className='flex items-center gap-2'>
-            <label>Rated: </label>
-            <RatedInput rated={rated} setRated={setRated} />
-          </div>
-          <div className='flex items-center gap-2'>
-            <label className='label'>Type: </label>
-            <TypeInput type={type} setType={setType} />
+        <div className='flex flex-col items-center gap-2 bg-[rgb(248,248,248)] max-w-[500px] rounded-2xl mx-auto p-5'>
+          <h1 className='font-bold text-3xl'>Awards</h1>
+          <div className='flex flex-col gap-2'>
+            <div className='flex items-center gap-2'>
+              <label>Nominations:</label>
+              <input
+                type='number'
+                value={nominations}
+                min={0}
+                max={99}
+                onChange={(e) => {
+                  setNominations(e.target.value);
+                  setText(`${wins} wins & ${e.target.value} nominations`);
+                }}
+                className='input'
+              />
+            </div>
+            <div className='flex items-center gap-2'>
+              <label>Wins:</label>
+              <input
+                type='number'
+                value={wins}
+                min={0}
+                max={nominations}
+                onChange={(e) => {
+                  setWins(e.target.value);
+                  setText(`${e.target.value} wins & ${nominations} nominations`);
+                }}
+                className='input'
+              />
+            </div>
+            <div className='flex items-center gap-2'>
+              <label>Text:</label>
+              <input
+                type='text'
+                readOnly
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                className='input hover:cursor-not-allowed'
+              />
+            </div>
           </div>
         </div>
-        <button type='submit' className='btn'>
-          Add Movie
-        </button>
+        <div className='flex flex-col items-center gap-2 bg-[rgb(248,248,248)] max-w-[500px] rounded-2xl mx-auto p-5'>
+          <h1 className='font-bold text-3xl'>Info</h1>
+          <div className='flex flex-col gap-2 items-center'>
+            <div className='flex items-center gap-2'>
+              <label>Rated: </label>
+              <RatedInput rated={rated} setRated={setRated} />
+            </div>
+            <div className='flex items-center gap-2'>
+              <label>Type: </label>
+              <TypeInput type={type} setType={setType} />
+            </div>
+            <div className='flex items-center gap-2'>
+              <label>Runtime: </label>
+              <input
+                type='number'
+                min={0}
+                required
+                value={runtime}
+                onChange={(e) => setRuntime(e.target.value)}
+                className='input w-[70px]'
+              />
+              <p>Minutes</p>
+            </div>
+            <div className='flex items-center gap-2 p-1 rounded hover:bg-[rgb(238,238,238)]'>
+              <DirectorsInput directors={directors} setDirectors={setDirectors} />
+            </div>
+
+            <div className='flex items-center gap-2 p-1 rounded hover:bg-[rgb(238,238,238)]'>
+              <LanguageInput languages={languages} setLanguages={setLanguages} />
+            </div>
+
+            <div className='flex items-center gap-2 p-1 rounded hover:bg-[rgb(238,238,238)]'>
+              <CountriesInput countries={countries} setCountries={setCountries} />
+            </div>
+            <div className='flex items-center gap-2'>
+              <label>Released: </label>
+              <input
+                type='date'
+                required
+                value={released}
+                onChange={(e) => {
+                  setReleased(e.target.value);
+                  setYear(e.target.value.slice(0, 4));
+                }}
+              />
+            </div>
+            <div className='flex items-center gap-2'>
+              <GenresInput genres={genres} setGenres={setGenres} />
+            </div>
+          </div>
+        </div>
+        <div className='flex justify-center mb-8'>
+          <button type='submit' className='btn btn-neutral btn-outline btn-xl'>
+            Add Movie
+          </button>
+        </div>
       </form>
       {Alert.length > 0 && (
         <div role='alert' className={`alert ${colorAlert} fixed bottom-4 right-4 z-50 shadow-lg`}>

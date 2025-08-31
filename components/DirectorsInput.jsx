@@ -24,6 +24,7 @@ export default function DirectorsInput({ directors, setDirectors }) {
               type='text'
               required
               className='input'
+              placeholder='Director'
               value={director}
               onChange={(e) => handleChange(index, e.target.value)}
             />

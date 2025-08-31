@@ -24,6 +24,7 @@ export default function CountriesInput({ countries, setCountries }) {
               type='text'
               required
               className='input'
+              placeholder='Country'
               value={country}
               onChange={(e) => handleChange(index, e.target.value)}
             />
