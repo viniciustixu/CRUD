@@ -16,9 +16,7 @@ export default function HomePage() {
   const errorImg = '/errorImg.png';
 
   const fetchMovies = async () => {
-    const res = await fetch(
-      `/api/movies?page=${page}&limit=${limit}&year=${year}&genres=${genres}`,
-    );
+    const res = await fetch(`/api/movies?page=${page}&limit=${limit}&year=${year}&genres=${genres}`);
     const data = await res.json();
     setMovies(data.movies);
     setTotalPages(data.totalPages);
@@ -47,7 +45,7 @@ export default function HomePage() {
         {movies.map((m, i) => (
           <div
             onClick={() => router.push(`/movie/${m._id}`)}
-            className='bg-[rgb(238,238,238)] w-[270px] m-5 p-2 flex flex-col justify-between'
+            className='bg-[rgb(238,238,238)] w-[270px] m-5 p-2 flex flex-col justify-between hover:bg-[rgb(228,228,228)] hover:cursor-pointer'
             key={i}>
             <h1 className='text-3xl'>{m.title}</h1>
             <p className='text-xs my-3'>{`"${m.plot || 'No plot'}"`}</p>
@@ -64,31 +62,23 @@ export default function HomePage() {
       </div>
       <div className='join my-4'>
         {page > 2 && (
-          <button
-            className='join-item btn p-6'
-            onClick={() => handleNewPage(1)}>
+          <button className='join-item btn p-6' onClick={() => handleNewPage(1)}>
             1
           </button>
         )}
         {page > 1 && (
-          <button
-            className='join-item btn p-6'
-            onClick={() => handleNewPage(page - 1)}>
+          <button className='join-item btn p-6' onClick={() => handleNewPage(page - 1)}>
             {page - 1}
           </button>
         )}
         <button className='join-item btn btn-disabled p-6'>{page}</button>
         {page < totalPages && (
-          <button
-            className='join-item btn p-6'
-            onClick={() => handleNewPage(page + 1)}>
+          <button className='join-item btn p-6' onClick={() => handleNewPage(page + 1)}>
             {page + 1}
           </button>
         )}
         {page < totalPages - 1 && (
-          <button
-            className='join-item btn p-6'
-            onClick={() => handleNewPage(totalPages)}>
+          <button className='join-item btn p-6' onClick={() => handleNewPage(totalPages)}>
             {totalPages}
           </button>
         )}

@@ -12,3 +12,10 @@ export async function GET(req, { params }) {
 export async function PUT(req, { params }) {
 
 }
+
+export async function DELETE(req, { params }) {
+  await connectToDatabase();
+  const { id } = await params;
+  const movie = await Movie.findByIdAndDelete(id);
+  return NextResponse.json({ movie }, { status: 200 });
+}
