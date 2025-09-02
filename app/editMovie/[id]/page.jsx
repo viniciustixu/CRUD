@@ -1,16 +1,35 @@
 'use client';
 import { useParams, useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import StarRating from '@/components/StarRating';
+import CastInput from '@/components/CastInput';
+import DirectorsInput from '@/components/DirectorsInput';
+import GenresInput from '@/components/GenresInput';
+import LanguageInput from '@/components/LanguageInput';
 
 export default function EditMovie({ params }) {
   const { id } = useParams();
   const router = useRouter();
+  const textareaRef = useRef(null);
   const errorImg = '/errorImg.png';
+  const svgEditIcon =
+    'M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z';
+
   const [movie, setMovie] = useState({});
 
-  const [poster, setPoster] = useState();
-  const [title, setTitle] = useState();
+  const [poster, setPoster] = useState('');
+  const [title, setTitle] = useState('');
+  const [rating, setRating] = useState(0);
+  const [votes, setVotes] = useState(0);
+  const [fullPlot, setFullPlot] = useState('');
+  const [plot, setPlot] = useState('');
+  const [cast, setCast] = useState(['']);
+  const [wins, setWins] = useState(0);
+  const [nominations, setNominations] = useState(0);
+  const [text, setText] = useState('');
+  const [directors, setDirectors] = useState(['']);
+  const [genres, setGenres] = useState(['']);
+  const [languages, setLanguages] = useState(['']);
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -25,11 +44,45 @@ export default function EditMovie({ params }) {
   }, [id]);
 
   useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = textareaRef.current.scrollHeight + 'px';
+    }
+  }, [fullPlot]);
+
+  useEffect(() => {
     if (movie.poster) {
       setPoster(movie.poster);
     }
     if (movie.title) {
       setTitle(movie.title);
+    }
+    if (movie.imdb) {
+      setRating(movie.imdb.rating);
+      setVotes(movie.imdb.votes);
+    }
+    if (movie.fullplot) {
+      setFullPlot(movie.fullplot);
+    }
+    if (movie.plot) {
+      setPlot(movie.plot);
+    }
+    if (movie.cast) {
+      setCast(movie.cast);
+    }
+    if (movie.awards) {
+      setWins(movie.awards.wins);
+      setNominations(movie.awards.nominations);
+      setText(movie.awards.text);
+    }
+    if (movie.directors) {
+      setDirectors(movie.directors);
+    }
+    if (movie.genres) {
+      setGenres(movie.genres);
+    }
+    if (movie.languages) {
+      setLanguages(movie.languages);
     }
   }, [movie]);
 
@@ -51,7 +104,7 @@ export default function EditMovie({ params }) {
         <div className='flex flex-col gap-3 items-center justify-center  max-w-[689px] '>
           <label className='input'>
             <svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='#000000'>
-              <path d='M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z' />
+              <path d={svgEditIcon} />
             </svg>
             <input type='text' className='grow' value={poster} onChange={(e) => setPoster(e.target.value)} />
           </label>
@@ -66,7 +119,7 @@ export default function EditMovie({ params }) {
         <div className='w-1/2 flex flex-col items-center mt-5'>
           <label className='input input-xl'>
             <svg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 -960 960 960' width='24px' fill='#000000'>
-              <path d='M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Zm640-584-56-56 56 56Zm-141 85-28-29 57 57-29-28Z' />
+              <path d={svgEditIcon} />
             </svg>
             <input
               type='text'
@@ -77,29 +130,132 @@ export default function EditMovie({ params }) {
           </label>
 
           <div className=' justify-end w-full flex mt-15 gap-1 items-center'>
-            <div className='flex flex-col items-center'>
-              <p className='font-extralight text-[0.8rem]'>{movie.imdb?.rating}</p>
-              <p className='ml-2 text-[0.6rem]'>(votes: {movie.imdb?.votes})</p>
+            <div className='flex flex-col gap-2 items-end'>
+              <div className='flex gap-2'>
+                <p>Rating:</p>
+                <label className='input input-xs w-30'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    height='24px'
+                    viewBox='0 -960 960 960'
+                    width='24px'
+                    fill='#000000'>
+                    <path d={svgEditIcon} />
+                  </svg>
+                  <input
+                    type='number'
+                    step={0.1}
+                    min={0}
+                    max={10}
+                    value={rating}
+                    onChange={(e) => setRating(e.target.value)}
+                  />
+                </label>
+              </div>
+
+              <div className='flex gap-2'>
+                <p>Votes:</p>
+                <label className='input input-xs w-30'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    height='24px'
+                    viewBox='0 -960 960 960'
+                    width='24px'
+                    fill='#000000'>
+                    <path d={svgEditIcon} />
+                  </svg>
+                  <input type='number' value={votes} onChange={(e) => setVotes(e.target.value)} />
+                </label>
+              </div>
             </div>
-            <StarRating rating={movie.imdb?.rating} className='justify-center' />
+            <StarRating rating={rating} className='justify-center' />
           </div>
-          <p className='text-[1.2rem] mt-2'>{movie.fullplot || movie.plot || 'No plot available'}</p>
+
+          <div className='w-full'>
+            <h2 className='text-2xl font-bold'>Fullplot: </h2>
+            <textarea
+              ref={textareaRef}
+              className='textarea w-full  text-[1.2rem] mt-2'
+              onChange={(e) => {
+                setFullPlot(e.target.value);
+                e.target.style.height = 'auto';
+                e.target.style.height = e.target.scrollHeight + 'px';
+              }}
+              value={fullPlot || 'No plot available'}></textarea>
+          </div>
+
+          <div className='w-full'>
+            <h2 className='text-2xl font-bold'>1 sentence plot: </h2>
+            <label className='input w-full'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                height='24px'
+                viewBox='0 -960 960 960'
+                width='24px'
+                fill='#000000'>
+                <path d={svgEditIcon} />
+              </svg>
+              <input type='text' className='grow' value={plot} onChange={(e) => setPlot(e.target.value)} />
+            </label>
+          </div>
 
           <aside className='mt-10 flex gap-10 flex-wrap justify-around'>
             <div className='w-[250px] bg-[rgb(248,248,248)] p-5 rounded-2xl'>
               <h2 className='text-2xl font-bold text-center'>Cast:</h2>
-              {movie.cast?.map((actor, i) => (
-                <p key={i} className='text-center mt-2'>
-                  {actor}
-                </p>
-              ))}
+              <CastInput cast={cast} setCast={setCast} />
             </div>
             <div className='w-[250px] bg-[rgb(248,248,248)] p-5 rounded-2xl text-center'>
               <h2 className='text-2xl font-bold'>Awards: </h2>
 
-              <p className='mt-2'>Wins: {movie?.awards?.wins || '0'}</p>
-              <p className='mt-2'>Nominations: {movie?.awards?.nominations || '0'}</p>
-              <p className='mt-2'>{movie?.awards?.text || 'no awards'}</p>
+              <div className='flex gap-2 items-center mt-2'>
+                <p>Wins:</p>
+                <label className='input w-full'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    height='24px'
+                    viewBox='0 -960 960 960'
+                    width='24px'
+                    fill='#000000'>
+                    <path d={svgEditIcon} />
+                  </svg>
+                  <input
+                    type='number'
+                    min={0}
+                    max={nominations}
+                    value={wins}
+                    onChange={(e) => {
+                      setWins(e.target.value);
+                      setText(`${e.target.value} wins & ${nominations} nominations`);
+                    }}
+                  />
+                </label>
+              </div>
+              <div className='flex gap-2 items-center mt-2'>
+                <p>Nominations:</p>
+                <label className='input w-full'>
+                  <svg
+                    xmlns='http://www.w3.org/2000/svg'
+                    height='24px'
+                    viewBox='0 -960 960 960'
+                    width='24px'
+                    fill='#000000'>
+                    <path d={svgEditIcon} />
+                  </svg>
+                  <input
+                    type='number'
+                    min={0}
+                    value={nominations || 0}
+                    onChange={(e) => {
+                      setNominations(e.target.value);
+                      setText(`${wins} wins & ${e.target.value} nominations`);
+                    }}
+                  />
+                </label>
+              </div>
+
+              <div className='mt-2'>
+                <p>{text}</p>
+              </div>
             </div>
 
             <div className='w-[90%] min-w-[430px] bg-[rgb(248,248,248)] p-5 rounded-2xl text-center flex flex-col'>
@@ -108,14 +264,12 @@ export default function EditMovie({ params }) {
                 <div className='flex flex-col gap-2'>
                   <div>
                     <h2 className='font-bold'>Director:</h2>
-                    {movie?.directors?.map((d, i) => <p key={i}>{d}</p>) || ' no director founded'}
+                    <DirectorsInput directors={directors} setDirectors={setDirectors} />
                   </div>
                   <div>
                     <h2 className='font-bold'>Languages:</h2>
 
-                    {movie?.languages?.map((l, i) => (
-                      <p key={i}>{l}</p>
-                    ))}
+                    <LanguageInput languages={languages} setLanguages={setLanguages} />
                   </div>
                   <div>
                     <h2 className='font-bold'> Released: </h2>
@@ -137,9 +291,7 @@ export default function EditMovie({ params }) {
                 <div className='flex flex-col gap-2'>
                   <div>
                     <h2 className='font-bold'>Genres:</h2>
-                    {movie?.genres?.map((g) => (
-                      <p>{g}</p>
-                    ))}
+                    <GenresInput genres={genres} setGenres={setGenres} />
                   </div>
                   <div>
                     <h2 className='font-bold'> Runtime: </h2>

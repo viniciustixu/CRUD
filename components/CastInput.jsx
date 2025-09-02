@@ -8,6 +8,7 @@ export default function CastInput({ cast, setCast }) {
   const handleRemoveCast = () => {
     const newCast = cast.slice(0, -1);
     setCast(newCast);
+    console.log(newCast);
   };
 
   const handleAddCast = () => {

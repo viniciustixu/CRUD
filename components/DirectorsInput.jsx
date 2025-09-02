@@ -3,7 +3,6 @@ export default function DirectorsInput({ directors, setDirectors }) {
     const newDirectors = [...directors];
     newDirectors[index] = value;
     setDirectors(newDirectors);
-    console.log(newDirectors);
   };
 
   const handleRemoveDirectors = () => {
