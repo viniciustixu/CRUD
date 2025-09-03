@@ -1,12 +1,18 @@
 import { useParams, useRouter } from 'next/navigation';
+import { ShowMsg } from './ShowMsg';
 
 export default function RemoveBtn({ id, movie }) {
   const router = useRouter();
 
   const handleDelete = async () => {
-    await fetch(`http://localhost:3000/api/movies/${id}`, { method: 'DELETE' });
-
-    router.push('/');
+    try {
+      document.getElementById('my_modal_2').close();
+      await fetch(`http://localhost:3000/api/movies/${id}`, { method: 'DELETE' });
+      ShowMsg('Sucessfully deleted', 'green');
+      router.push('/');
+    } catch (err) {
+      ShowMsg(err.message || 'Error deleting', 'red');
+    }
   };
 
   return (

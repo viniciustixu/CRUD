@@ -5,7 +5,7 @@ export default function TypeInput({ type, setType }) {
   };
 
   return (
-    <select onChange={handleChange} className='select'>
+    <select onChange={handleChange} value={type} className='select'>
       <option value='movie'>movie</option>
       <option value='series'>series</option>
     </select>

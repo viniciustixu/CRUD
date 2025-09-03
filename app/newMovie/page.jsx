@@ -9,6 +9,7 @@ import TypeInput from '@/components/TypeInput';
 import DirectorsInput from '@/components/DirectorsInput';
 import { sendError } from 'next/dist/server/api-utils';
 import { useRouter } from 'next/navigation';
+import { ShowMsg } from '@/components/ShowMsg';
 
 export default function addMovie() {
   const router = useRouter();
@@ -30,8 +31,6 @@ export default function addMovie() {
   const [runtime, setRuntime] = useState(0);
   const [rated, setRated] = useState('G');
   const [type, setType] = useState('movie');
-  const [Alert, setAlert] = useState('');
-  const [colorAlert, setColorAlert] = useState('');
   const [year, setYear] = useState(2025);
   const newMovie = {
     title,
@@ -60,48 +59,31 @@ export default function addMovie() {
     lastupdated: new Date().toISOString(),
   };
 
-  const showMsg = (msg, color) => {
-    if (color == 'red') {
-      setColorAlert('alert-error');
-    }
-
-    if (color == 'green') {
-      setColorAlert('alert-success');
-    }
-
-    if (color == 'yellow') {
-      setColorAlert('alert-warning');
-    }
-
-    setAlert(msg);
-    setTimeout(() => setAlert(''), 3000);
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (title == 'Title') {
-      showMsg('Error, change title', 'red');
+      ShowMsg('Error, change title', 'red');
       return;
     }
 
     if (genres.includes('Genres') || genres.length < 1) {
-      showMsg('Error, select a genre', 'red');
+      ShowMsg('Error, select a genre', 'red');
       return;
     }
 
     if (languages.includes('Languages')) {
-      showMsg('Error, type a language', 'red');
+      ShowMsg('Error, type a language', 'red');
       return;
     }
 
     if (countries.includes('Countries')) {
-      showMsg('Error, type a country', 'red');
+      ShowMsg('Error, type a country', 'red');
       return;
     }
 
     if (runtime < 1) {
-      showMsg('Error, type a runtime', 'red');
+      ShowMsg('Error, type a runtime', 'red');
       return;
     }
 
@@ -115,16 +97,16 @@ export default function addMovie() {
       const data = await res.json();
 
       if (!res.ok) {
-        showMsg(data.message || 'Error adding movie', 'red');
+        ShowMsg(data.message || 'Error adding movie', 'red');
         return;
       }
 
-      showMsg('Movie added successfully', 'green');
+      ShowMsg('Movie added successfully', 'green');
       setTimeout(() => {
         router.push(`/movie/${data._id}`);
       }, 2000);
     } catch (err) {
-      showMsg(err.message || 'Network error', 'red');
+      ShowMsg(err.message || 'Network error', 'red');
     }
   };
 
@@ -150,7 +132,14 @@ export default function addMovie() {
             </div>
             <div className='flex items-center gap-2'>
               <label>Plot: </label>
-              <input type='text' required value={plot} onChange={(e) => setPlot(e.target.value)} className='input' />
+              <input
+                type='text'
+                required
+                value={plot}
+                maxLength={200}
+                onChange={(e) => setPlot(e.target.value)}
+                className='input'
+              />
             </div>
             <div className='flex items-center gap-2'>
               <label>fullPlot: </label>
@@ -293,23 +282,6 @@ export default function addMovie() {
           </button>
         </div>
       </form>
-      {Alert.length > 0 && (
-        <div role='alert' className={`alert ${colorAlert} fixed bottom-4 right-4 z-50 shadow-lg`}>
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            className='h-6 w-6 shrink-0 stroke-current'
-            fill='none'
-            viewBox='0 0 24 24'>
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              strokeWidth='2'
-              d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z'
-            />
-          </svg>
-          <span>{Alert}</span>
-        </div>
-      )}
     </div>
   );
 }

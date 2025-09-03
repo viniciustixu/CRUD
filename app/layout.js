@@ -3,6 +3,8 @@ import HomeBtn from '@/components/HomeBtn';
 import Filters from '@/components/Filters';
 import Search from '@/components/Search';
 import AddMovieBtn from '@/components/addMovieBtn';
+import { ShowMsgContainer } from "@/components/ShowMsg";
+
 
 
 export const metadata = {
@@ -28,8 +30,8 @@ export default function RootLayout({ children }) {
 
               <AddMovieBtn />
               <HomeBtn />
+              <ShowMsgContainer />
             </div>
-
           </nav>
         </header>
         {children}

@@ -5,7 +5,7 @@ export default function RatedInput({ rated, setRated }) {
   };
 
   return (
-    <select onChange={handleChange} className='select'>
+    <select onChange={handleChange} value={rated} className='select'>
       <option value='G'>G</option>
       <option value='PG'>PG</option>
       <option value='PG-13'>PG-13</option>

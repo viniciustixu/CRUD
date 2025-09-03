@@ -10,7 +10,11 @@ export async function GET(req, { params }) {
 }
 
 export async function PUT(req, { params }) {
-
+  await connectToDatabase();
+  const { id } = await params;
+  const body = await req.json();
+  const movie = await Movie.findByIdAndUpdate(id, body, { new: true });
+  return NextResponse.json({ movie, _id: movie._id }, { status: 200 });
 }
 
 export async function DELETE(req, { params }) {

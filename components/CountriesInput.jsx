@@ -3,7 +3,6 @@ export default function CountriesInput({ countries, setCountries }) {
     const newCountry = [...countries];
     newCountry[index] = value;
     setCountries(newCountry);
-    console.log(newCountry);
   };
 
   const handleRemoveCountry = () => {

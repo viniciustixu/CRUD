@@ -30,27 +30,27 @@ export default function moviePage({ params }) {
       <div className='flex-col items-center bg-[rgb(238,238,238)]  p-5 flex justify-around lg:flex-row xl:w-2/3 lg:items-start'>
         <div className='flex justify-center items-start max-w-[689px] '>
           <img
-            src={movie.poster || errorImg}
+            src={movie?.poster || errorImg}
             onError={(e) => (e.target.src = errorImg)}
             alt='movie poster'
             className='max-w-[70%] h-auto object-contain lg:align-top'
           />
         </div>
         <div className='w-1/2 flex flex-col items-center mt-5'>
-          <h1 className='text-6xl font-bold'>{movie.title}</h1>
+          <h1 className='text-6xl font-bold'>{movie?.title}</h1>
           <div className=' justify-end w-full flex mt-15 gap-1 items-center'>
             <div className='flex flex-col items-center'>
-              <p className='font-extralight text-[0.8rem]'>{movie.imdb?.rating}</p>
-              <p className='ml-2 text-[0.6rem]'>(votes: {movie.imdb?.votes})</p>
+              <p className='font-extralight text-[0.8rem]'>{movie?.imdb?.rating}</p>
+              <p className='ml-2 text-[0.6rem]'>(votes: {movie?.imdb?.votes})</p>
             </div>
-            <StarRating rating={movie.imdb?.rating} className='justify-center' />
+            <StarRating rating={movie?.imdb?.rating} className='justify-center' />
           </div>
-          <p className='text-[1.2rem] mt-2'>{movie.fullplot || movie.plot || 'No plot available'}</p>
+          <p className='text-[1.2rem] mt-2'>{movie?.fullplot || movie?.plot || 'No plot available'}</p>
 
           <aside className='mt-10 flex gap-10 flex-wrap justify-around'>
             <div className='w-[250px] bg-[rgb(248,248,248)] p-5 rounded-2xl'>
               <h2 className='text-2xl font-bold text-center'>Cast:</h2>
-              {movie.cast?.map((actor, i) => (
+              {movie?.cast?.map((actor, i) => (
                 <p key={i} className='text-center mt-2'>
                   {actor}
                 </p>
