@@ -1,3 +1,4 @@
+'use client';
 import "./globals.css";
 import HomeBtn from '@/components/HomeBtn';
 import Filters from '@/components/Filters';
