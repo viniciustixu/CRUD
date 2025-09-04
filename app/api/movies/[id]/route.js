@@ -1,10 +1,14 @@
 import connectToDatabase from '@/libs/mongodb';
 import Movie from '@/models/movie';
 import { NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb';
 
 export async function GET(req, { params }) {
   await connectToDatabase();
   const { id } = await params;
+  if (!ObjectId.isValid(id)) {
+    return NextResponse.json({ message: 'Invalid ID' }, { status: 400 });
+  }
   const movie = await Movie.findById(id);
   return NextResponse.json({ movie }, { status: 200 });
 }

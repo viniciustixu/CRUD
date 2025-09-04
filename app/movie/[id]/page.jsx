@@ -4,18 +4,27 @@ import { useEffect, useState } from 'react';
 import StarRating from '@/components/StarRating';
 import RemoveBtn from '@/components/RemoveBtn';
 import EditBtn from '@/components/EditBtn';
+import { ShowMsg } from '@/components/ShowMsg';
+import { useRouter } from 'next/navigation';
 
 export default function moviePage({ params }) {
   const { id } = useParams(params);
   const [movie, setMovie] = useState({});
   const errorImg = '/errorImg.png';
+  const router = useRouter();
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const res = await fetch(`http://localhost:3000/api/movies/${id}`);
+      const res = await fetch(`/api/movies/${id}`);
       const data = await res.json();
+      if (data.message === 'Invalid ID') {
+        ShowMsg(data.message, 'red');
+        router.push('/');
+        router.refresh();
+        return;
+      }
+
       setMovie(data.movie);
-      console.log(data.movie);
     };
 
     fetchMovie();
