@@ -51,7 +51,7 @@ export default function Filters() {
     params.delete('limit');
     params.delete('year');
     params.delete('genres');
-    // router.push(`/?${params.toString()}`);
+
     setGenres([]);
     setYear(0);
     setLimit(50);
@@ -78,18 +78,12 @@ export default function Filters() {
           </label>
         </div>
         <div className='drawer-side'>
-          <label
-            htmlFor='my-drawer'
-            aria-label='close sidebar'
-            className='drawer-overlay'></label>
+          <label htmlFor='my-drawer' aria-label='close sidebar' className='drawer-overlay'></label>
           <ul className='menu bg-base-200 text-base-content min-h-full w-80 p-4'>
             <li>
               <div>
                 <label className='label'>Limit per page: </label>
-                <select
-                  value={limit}
-                  className='select'
-                  onChange={(e) => setLimit(e.target.value)}>
+                <select value={limit} className='select' onChange={(e) => setLimit(e.target.value)}>
                   <option disabled={true}>{limit}</option>
                   <option value='10'>10</option>
                   <option value='20'>20</option>
@@ -109,10 +103,7 @@ export default function Filters() {
             <li>
               <div className='flex justify-between'>
                 <label className='label'>Year: </label>
-                <select
-                  value={year}
-                  className='select max-w-[163.45px]'
-                  onChange={(e) => setYear(e.target.value)}>
+                <select value={year} className='select max-w-[163.45px]' onChange={(e) => setYear(e.target.value)}>
                   <option value='0' hidden={year == 0 ? true : false}>
                     any
                   </option>
@@ -137,10 +128,7 @@ export default function Filters() {
             <li>
               <div className='flex flex-wrap p-2 gap-4'>
                 {genresList.map((genre, index) => (
-                  <label
-                    htmlFor={genre}
-                    key={index}
-                    className=' p-1 rounded flex gap-2'>
+                  <label htmlFor={genre} key={index} className=' p-1 rounded flex gap-2'>
                     {genre}
                     <input
                       type='checkbox'
@@ -165,10 +153,7 @@ export default function Filters() {
                   Apply
                 </button>
                 <button className='btn p-2 w-[60px]' onClick={handleReset}>
-                  <img
-                    src='/reseticon.svg'
-                    className='object-contain w-full h-full'
-                  />
+                  <img src='/reseticon.svg' className='object-contain w-full h-full' />
                 </button>
               </div>
             </li>

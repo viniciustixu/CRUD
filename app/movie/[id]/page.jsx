@@ -99,8 +99,8 @@ export default function moviePage({ params }) {
                 <div className='flex flex-col gap-2'>
                   <div>
                     <h2 className='font-bold'>Genres:</h2>
-                    {movie?.genres?.map((g) => (
-                      <p>{g}</p>
+                    {movie?.genres?.map((g, i) => (
+                      <p key={i}>{g}</p>
                     ))}
                   </div>
                   <div>

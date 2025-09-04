@@ -12,11 +12,14 @@ export default function HomePage() {
   const genres = searchParams.get('genres') || '';
   const [movies, setMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
+  const search = searchParams.get('search') || '';
 
   const errorImg = '/errorImg.png';
 
   const fetchMovies = async () => {
-    const res = await fetch(`/api/movies?page=${page}&limit=${limit}&year=${year}&genres=${genres}`);
+    const res = await fetch(
+      `/api/movies?page=${page}&limit=${limit}&year=${year}&genres=${genres}&search=${encodeURIComponent(search)}`,
+    );
     const data = await res.json();
     setMovies(data.movies);
     setTotalPages(data.totalPages);
@@ -29,7 +32,7 @@ export default function HomePage() {
 
   useEffect(() => {
     fetchMovies();
-  }, [page, limit, year, genres]);
+  }, [page, limit, year, genres, search]);
 
   const handleNewPage = (p) => {
     const newPage = p;

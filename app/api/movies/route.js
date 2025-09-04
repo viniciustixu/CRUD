@@ -22,6 +22,15 @@ export async function GET(req) {
     query.genres = { $all: genres.split(',') };
   }
 
+  const search = searchParams.get('search');
+  if (search) {
+    query.$or = [
+      { title: { $regex: search, $options: 'i' } },
+      { plot: { $regex: search, $options: 'i' } },
+      { fullplot: { $regex: search, $options: 'i' } }
+    ];
+  }
+
 
   const movies = await Movie.find(query).skip(skip).limit(limit);
   const total = await Movie.countDocuments(query);
