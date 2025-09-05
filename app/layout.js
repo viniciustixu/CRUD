@@ -4,6 +4,7 @@ import Filters from '@/components/Filters';
 import Search from '@/components/Search';
 import AddMovieBtn from '@/components/addMovieBtn';
 import { ShowMsgContainer } from "@/components/ShowMsg";
+import { Suspense, lazy } from 'react';
 
 
 
@@ -16,26 +17,28 @@ export const metadata = {
 };
 
 
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
         <header>
-          <nav className="navbar bg-base-300 justify-between">
-            <div>
-              <Filters />
-            </div>
-            <Search />
-            <div className='flex gap-2'>
-
-              <AddMovieBtn />
-              <HomeBtn />
-              <ShowMsgContainer />
-            </div>
-          </nav>
+          <Suspense fallback={<div>Loading...</div>}>
+            <nav className="navbar bg-base-300 justify-between">
+              <div>
+                <Filters />
+              </div>
+              <Search />
+              <div className='flex gap-2'>
+                <AddMovieBtn />
+                <HomeBtn />
+                <ShowMsgContainer />
+              </div>
+            </nav>
+          </Suspense>
         </header>
         {children}
       </body>
-    </html>
+    </html >
   );
 }
