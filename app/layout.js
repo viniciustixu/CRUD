@@ -4,6 +4,7 @@ import Filters from '@/components/Filters';
 import Search from '@/components/Search';
 import AddMovieBtn from '@/components/addMovieBtn';
 import { ShowMsgContainer } from "@/components/ShowMsg";
+import { Suspense } from 'react';
 
 
 
@@ -34,7 +35,7 @@ export default function RootLayout({ children }) {
             </div>
           </nav>
         </header>
-        {children}
+        <Suspense fallback={<div>Loading...</div>}>{children} </Suspense>
       </body>
     </html >
   );
