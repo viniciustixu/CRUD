@@ -1,10 +1,14 @@
-import HomePage from '@/components/HomePage';
+'use client';
+import { Suspense, lazy } from 'react';
+const HomePageLazy = lazy(() => import('@/components/HomePage'));
 
 
 export default function Home() {
   return (
     <div>
-      <HomePage />
+      <Suspense fallback={null}>
+        <HomePageLazy />
+      </Suspense>
     </div>
   );
 }
