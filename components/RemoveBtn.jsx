@@ -1,4 +1,4 @@
-import { useParams, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { ShowMsg } from './ShowMsg';
 
 export default function RemoveBtn({ id, movie }) {
