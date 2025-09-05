@@ -1,9 +1,6 @@
-'use client';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function NotFound() {
-  const router = useRouter();
-
   return (
     <section className='mt-[180px] dark:bg-gray-900'>
       <div className='py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6'>
@@ -17,9 +14,9 @@ export default function NotFound() {
           <p className='mb-4 text-lg font-light text-gray-500 dark:text-gray-400'>
             Sorry, we can't find that page. You'll find lots to explore on the home page.
           </p>
-          <button onClick={() => router.push('/')} className='btn btn-xl mt-10'>
+          <Link href='/' className='btn btn-xl mt-10'>
             Back to Homepage
-          </button>
+          </Link>
         </div>
       </div>
     </section>
