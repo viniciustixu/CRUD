@@ -7,7 +7,7 @@ export default function RemoveBtn({ id, movie }) {
   const handleDelete = async () => {
     try {
       document.getElementById('my_modal_2').close();
-      await fetch(`http://localhost:3000/api/movies/${id}`, { method: 'DELETE' });
+      await fetch(`/api/movies/${id}`, { method: 'DELETE' });
       ShowMsg('Sucessfully deleted', 'green');
       router.push('/');
     } catch (err) {

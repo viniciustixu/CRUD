@@ -69,7 +69,7 @@ export default function EditMovie({ params }) {
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const res = await fetch(`http://localhost:3000/api/movies/${id}`);
+      const res = await fetch(`/api/movies/${id}`);
       const data = await res.json();
       setMovie(data.movie);
     };
