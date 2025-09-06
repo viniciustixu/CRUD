@@ -14,6 +14,9 @@ export const metadata = {
   keywords: "movies, series, reviews, cast, ratings, cinema, trailers, IMDb, film news",
   author: "Tixu",
   robots: "index, follow",
+  icons: {
+    icon: "/favicon.png"
+  }
 };
 
 
