@@ -20,7 +20,7 @@ export const metadata = {
   openGraph: {
     images: [
       {
-        url: '/previewImg.webp',
+        url: 'https://cinetest.vercel.app/previewImg.webp',
         alt: 'image preview',
       },
     ],
