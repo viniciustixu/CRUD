@@ -20,7 +20,7 @@ export const metadata = {
   openGraph: {
     images: [
       {
-        url: 'https://www.plex.tv/wp-content/uploads/2025/03/Watch-Free-Hero-2048x1152-1.png',
+        url: '/previewImg.webp',
         alt: 'image preview',
       },
     ],
