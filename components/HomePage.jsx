@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import SkeletonHome from './SkeletonHome';
 
 export default function HomePage() {
   const router = useRouter();
@@ -13,14 +14,17 @@ export default function HomePage() {
   const [movies, setMovies] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const search = searchParams.get('search') || '';
+  const [loading, setLoading] = useState(false);
 
   const errorImg = '/errorImg.png';
 
   const fetchMovies = async () => {
+    setLoading(true);
     const res = await fetch(
       `/api/movies?page=${page}&limit=${limit}&year=${year}&genres=${genres}&search=${encodeURIComponent(search)}`,
     );
     const data = await res.json();
+    setLoading(false);
     setMovies(data.movies);
     setTotalPages(data.totalPages);
     if (page > data.totalPages) {
@@ -42,13 +46,17 @@ export default function HomePage() {
     router.refresh();
   };
 
+  if (loading) {
+    return <SkeletonHome />;
+  }
+
   return (
     <div className='flex flex-col items-center'>
       <div className='flex flex-wrap justify-center'>
         {movies.map((m, i) => (
           <div
             onClick={() => router.push(`/movie/${m._id}`)}
-            className='bg-[rgb(238,238,238)] w-[270px] m-5 p-2 flex flex-col justify-between hover:bg-[rgb(228,228,228)] hover:cursor-pointer'
+            className='bg-[rgb(238,238,238)] w-[270px] m-5 p-2 flex flex-col rounded-xl justify-between hover:bg-[rgb(228,228,228)] hover:cursor-pointer'
             key={i}>
             <h1 className='text-3xl'>{m.title}</h1>
             <p className='text-xs my-3'>{`"${m.plot || 'No plot'}"`}</p>

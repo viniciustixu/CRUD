@@ -6,17 +6,22 @@ import RemoveBtn from '@/components/RemoveBtn';
 import EditBtn from '@/components/EditBtn';
 import { ShowMsg } from '@/components/ShowMsg';
 import { useRouter } from 'next/navigation';
+import { set } from 'mongoose';
+import SkeletonMovie from '@/components/SkeletonMovie';
 
 export default function moviePage({ params }) {
   const { id } = useParams(params);
   const [movie, setMovie] = useState({});
+  const [loading, setLoading] = useState(false);
   const errorImg = '/errorImg.png';
   const router = useRouter();
 
   useEffect(() => {
     const fetchMovie = async () => {
+      setLoading(true);
       const res = await fetch(`/api/movies/${id}`);
       const data = await res.json();
+      setLoading(false);
       if (data.message === 'Invalid ID') {
         ShowMsg(data.message, 'red');
         router.push('/');
@@ -30,13 +35,17 @@ export default function moviePage({ params }) {
     fetchMovie();
   }, [id]);
 
+  if (loading) {
+    return <SkeletonMovie />;
+  }
+
   return (
     <div className='flex flex-col items-center lg:justify-center mb-5'>
       <div className=' xl:w-2/3 flex w-full justify-end mt-[60px] mb-3 gap-2'>
         <EditBtn id={id} />
         <RemoveBtn id={id} movie={movie} />
       </div>
-      <div className='flex-col items-center bg-[rgb(238,238,238)]  p-5 flex justify-around lg:flex-row xl:w-2/3 lg:items-start'>
+      <div className='flex-col items-center bg-[rgb(238,238,238)]  p-5 flex rounded-xl justify-around lg:flex-row xl:w-2/3 lg:items-start'>
         <div className='flex justify-center items-start max-w-[689px] '>
           <img
             src={movie?.poster || errorImg}
