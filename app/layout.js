@@ -32,11 +32,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" data-theme="light">
       <body>
         <Suspense fallback={<div>Loading...</div>}>
           <header>
-            <nav className="navbar bg-base-300 justify-between">
+            <nav className="navbar bg-[#EEEEEE] justify-between">
               <div>
                 <Filters />
               </div>
