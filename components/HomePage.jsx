@@ -77,7 +77,7 @@ export default function HomePage() {
                     e.target.src = errorImg;
                     setImgError((prev) => ({ ...prev, [m._id]: true }));
                   }}
-                  className='max-w-[250px]'
+                  className='max-w-[250px] max-h-[460px]'
                   alt={m.title}
                 />
 
