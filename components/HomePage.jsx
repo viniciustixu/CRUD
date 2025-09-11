@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import SkeletonHome from './SkeletonHome';
+import Link from 'next/link';
 
 export default function HomePage() {
   const router = useRouter();
@@ -54,10 +55,10 @@ export default function HomePage() {
     <div className='flex flex-col items-center'>
       <div className='flex flex-wrap justify-center'>
         {movies.map((m, i) => (
-          <div
-            onClick={() => router.push(`/movie/${m._id}`)}
-            className='bg-[rgb(238,238,238)] w-[270px] m-5 p-2 flex flex-col rounded-xl justify-between hover:bg-[rgb(228,228,228)] hover:cursor-pointer'
-            key={i}>
+          <Link
+            href={`/movie/${m._id}`}
+            key={i}
+            className='bg-[rgb(238,238,238)] w-[270px] m-5 p-2 flex flex-col rounded-xl justify-between hover:bg-[rgb(228,228,228)] hover:cursor-pointer'>
             <h1 className='text-3xl'>{m.title}</h1>
             <p className='text-xs my-3'>{`"${m.plot || 'No plot'}"`}</p>
             <img
@@ -68,7 +69,7 @@ export default function HomePage() {
               className='max-w-[250px]'
               alt={m.title}
             />
-          </div>
+          </Link>
         ))}
       </div>
       <div className='join my-4'>

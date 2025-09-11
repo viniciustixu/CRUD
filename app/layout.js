@@ -36,7 +36,7 @@ export default function RootLayout({ children }) {
       <body>
         <Suspense fallback={<div>Loading...</div>}>
           <header>
-            <nav className="navbar bg-[#EEEEEE] justify-between">
+            <nav className="navbar bg-[#EEEEEE] justify-between gap-5">
               <div>
                 <Filters />
               </div>
