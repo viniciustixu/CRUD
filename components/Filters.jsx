@@ -62,7 +62,7 @@ export default function Filters() {
       <div className='drawer'>
         <input id='my-drawer' type='checkbox' className='drawer-toggle' />
         <div className='drawer-content'>
-          <label htmlFor='my-drawer' className='btn btn-neutral btn-outline'>
+          <label htmlFor='my-drawer' className='btn btn-neutral btn-outline relative group'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               fill='none'
@@ -75,6 +75,10 @@ export default function Filters() {
                 strokeWidth='2'
                 d='M4 6h16M4 12h16M4 18h16'></path>{' '}
             </svg>
+
+            <span className='absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 roup-focus:opacity-100 transition-opacity pointer-events-none whitespace-nowrap z-50'>
+              Open filters
+            </span>
           </label>
         </div>
         <div className='drawer-side'>
